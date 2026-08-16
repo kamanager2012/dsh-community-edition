@@ -9,7 +9,7 @@ https://github.com/kamanager2012/dsh-community-edition
 Do not fold this tree into another community DSH suite, and do not npm-publish `@dsh-community/*` as a replacement for official or reference packages.
 
 1. **GitHub preview repo** — this repo
-2. **Linux AppImage** — [v0.1.1-preview](https://github.com/kamanager2012/dsh-community/releases/tag/v0.1.1-preview)
+2. **Linux AppImage** — [v0.1.2-preview](https://github.com/kamanager2012/dsh-community-edition/releases/tag/v0.1.2-preview)
 3. **TUI / Desktop on official dsh** — official `~/.dsh/sessions`, `--list-sessions` / `--resume`
 4. **Windows / macOS artifacts** — when we sit on those OSes
 5. **Do not npm-publish** workspace packages
@@ -19,15 +19,15 @@ pnpm test
 pnpm typecheck
 pnpm desktop:package -- --appimage
 sha256sum apps/desktop/release/dsh-community-*.AppImage \
-  | tee apps/desktop/release/dsh-community-0.1.1.AppImage.sha256
+  | tee apps/desktop/release/dsh-community-0.1.2.AppImage.sha256
 
-gh release create v0.1.1-preview \
+gh release create v0.1.2-preview \
   --repo kamanager2012/dsh-community-edition \
-  --title "0.1.1-preview" \
+  --title "0.1.2-preview" \
   --prerelease \
   --notes-file CHANGELOG.md \
-  apps/desktop/release/dsh-community-0.1.1.AppImage \
-  apps/desktop/release/dsh-community-0.1.1.AppImage.sha256
+  apps/desktop/release/dsh-community-0.1.2.AppImage \
+  apps/desktop/release/dsh-community-0.1.2.AppImage.sha256
 ```
 
 Prefer attaching an AppImage or a zip of `linux-unpacked` over committing the unpacked tree.

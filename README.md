@@ -1,6 +1,6 @@
 # dsh-community
 
-**DSH 社区版（DeepSeek Harness Community Edition）—— 0.1.1-preview.**
+**DSH 社区版（DeepSeek Harness Community Edition）—— 0.1.2-preview.**
 
 只发布在 [github.com/kamanager2012/dsh-community-edition](https://github.com/kamanager2012/dsh-community-edition)。官方 Runtime 的社区发行层，不是官方客户端，也不是第二套 harness。
 
@@ -13,7 +13,7 @@
 
 > 命名红线：不叫 dsh-TUI / DeepSeek Harness Desktop（那是参考物），不在 npm 冒用 `@deepseek-ai` 或 `dsh-tui` 的包名。
 
-[仓库](https://github.com/kamanager2012/dsh-community-edition) · [Release](https://github.com/kamanager2012/dsh-community/releases/tag/v0.1.1-preview)
+[仓库](https://github.com/kamanager2012/dsh-community-edition) · [Release](https://github.com/kamanager2012/dsh-community-edition/releases/tag/v0.1.2-preview)
 
 开发基础就是**目前已发布**的官方包 `@deepseek-ai/dsh@0.1.0-rc.6`（见 `packages/dsh-bridge` 的 pin）。在这上面做 Terminal / Desktop 发行，不另写 harness，也不等下一份官方 UI。
 
@@ -48,7 +48,7 @@ dsh-community plugins         # 只读目录，安装用官方 dsh plugin add
 dsh-community desktop
 ```
 
-Linux 预览包仍在旧 Release：[0.1.1-preview AppImage](https://github.com/kamanager2012/dsh-community/releases/tag/v0.1.1-preview)。不要把本仓发到 npm 当官方或 `dsh-tui` 的替代。
+Linux 预览包：[0.1.2-preview AppImage](https://github.com/kamanager2012/dsh-community-edition/releases/tag/v0.1.2-preview)。不要把本仓发到 npm 当官方或 `dsh-tui` 的替代。
 
 打 Linux 解包目录或 AppImage（预览，未签名）：
 

@@ -1,8 +1,10 @@
 # Changelog
 
-## Unreleased
+## 0.1.2-preview — 2026-08-16
 
-Desktop shell polish on the same GitHub repo. No new Release tag.
+Release: https://github.com/kamanager2012/dsh-community-edition/releases/tag/v0.1.2-preview
+
+Published only from this repository. Official `@deepseek-ai/dsh@0.1.0-rc.6` is the development foundation.
 
 - Desktop settings: hide-to-tray, optional isolated official home (restarts `dsh web`)
 - Official session list shows mtime and copies `dsh-community-tui --resume <id>`
