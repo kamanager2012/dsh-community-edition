@@ -2,9 +2,9 @@
 
 **DSH 社区版（DeepSeek Harness Community Edition）—— 0.1.1-preview.**
 
-只发布在 [github.com/kamanager2012/dsh-community](https://github.com/kamanager2012/dsh-community)。官方 Runtime 的社区发行层，不是官方客户端，也不是第二套 harness。
+只发布在 [github.com/kamanager2012/dsh-community-edition](https://github.com/kamanager2012/dsh-community-edition)。官方 Runtime 的社区发行层，不是官方客户端，也不是第二套 harness。
 
-[![ci](https://github.com/kamanager2012/dsh-community/actions/workflows/ci.yml/badge.svg)](https://github.com/kamanager2012/dsh-community/actions/workflows/ci.yml)
+[![ci](https://github.com/kamanager2012/dsh-community-edition/actions/workflows/ci.yml/badge.svg)](https://github.com/kamanager2012/dsh-community-edition/actions/workflows/ci.yml)
 
 | 发行面 | 命名 | 入口 |
 |---|---|---|
@@ -13,7 +13,7 @@
 
 > 命名红线：不叫 dsh-TUI / DeepSeek Harness Desktop（那是参考物），不在 npm 冒用 `@deepseek-ai` 或 `dsh-tui` 的包名。
 
-[仓库](https://github.com/kamanager2012/dsh-community) · [Release](https://github.com/kamanager2012/dsh-community/releases/tag/v0.1.1-preview)
+[仓库](https://github.com/kamanager2012/dsh-community-edition) · [Release](https://github.com/kamanager2012/dsh-community/releases/tag/v0.1.1-preview)
 
 开发基础是官方 DeepSeek Harness（`@deepseek-ai/dsh`）。我们在这上面做 Terminal / Desktop 发行和契约层，不另写一套 harness。
 
@@ -24,7 +24,7 @@
 需要 Node 22+、pnpm，以及 `DEEPSEEK_API_KEY`。对话存在官方 `~/.dsh`，终端和桌面是同一批。
 
 ```sh
-git clone https://github.com/kamanager2012/dsh-community.git
+git clone https://github.com/kamanager2012/dsh-community-edition.git
 cd dsh-community
 pnpm install
 

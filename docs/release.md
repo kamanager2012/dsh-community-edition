@@ -4,7 +4,7 @@ Official `@deepseek-ai/dsh` is the **development foundation**. We build TUI and 
 
 Publish **only** from this repository:
 
-https://github.com/kamanager2012/dsh-community
+https://github.com/kamanager2012/dsh-community-edition
 
 Do not fold this tree into another community DSH suite, and do not npm-publish `@dsh-community/*` as a replacement for official or reference packages.
 
@@ -22,7 +22,7 @@ sha256sum apps/desktop/release/dsh-community-*.AppImage \
   | tee apps/desktop/release/dsh-community-0.1.1.AppImage.sha256
 
 gh release create v0.1.1-preview \
-  --repo kamanager2012/dsh-community \
+  --repo kamanager2012/dsh-community-edition \
   --title "0.1.1-preview" \
   --prerelease \
   --notes-file CHANGELOG.md \

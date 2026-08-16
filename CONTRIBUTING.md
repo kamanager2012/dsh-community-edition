@@ -4,7 +4,7 @@
 
 This is a reconstruction of community surfaces, not a fork. See [docs/reconstruction.md](docs/reconstruction.md).
 
-Publish and open PRs only against **this** repository: [kamanager2012/dsh-community](https://github.com/kamanager2012/dsh-community). Do not merge this tree into another agent’s DSH suite.
+Publish and open PRs only against **this** repository: [kamanager2012/dsh-community-edition](https://github.com/kamanager2012/dsh-community-edition). Do not merge this tree into another agent’s DSH suite.
 
 1. Official `@deepseek-ai/dsh` is the development foundation and the only runtime. Do not copy official `packages/*` into this tree.
 2. UI hangs on `session/event` and `ctx.agents`. Do not add an agent loop, tool pipeline, or model adapter here.

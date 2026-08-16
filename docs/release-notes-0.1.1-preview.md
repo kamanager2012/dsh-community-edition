@@ -2,7 +2,7 @@
 
 Community distribution preview around official DeepSeek Harness.
 
-**Published only from** https://github.com/kamanager2012/dsh-community
+**Published only from** https://github.com/kamanager2012/dsh-community-edition
 
 This is not an official DeepSeek client. It does not replace `npx @deepseek-ai/dsh` or the reference `dsh-tui` binary. Workspace packages are **not** npm-published.
 
@@ -25,7 +25,7 @@ Runtime: published `@deepseek-ai/dsh@0.1.0-rc.6`.
 ## From source
 
 ```sh
-git clone https://github.com/kamanager2012/dsh-community.git
+git clone https://github.com/kamanager2012/dsh-community-edition.git
 cd dsh-community
 pnpm install
 pnpm desktop
