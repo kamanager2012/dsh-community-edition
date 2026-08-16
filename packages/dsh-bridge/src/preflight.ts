@@ -7,6 +7,7 @@ export function officialApiKeyPresent(env: NodeJS.ProcessEnv = process.env): boo
 }
 
 export interface DistributionPreflight {
+  readonly clientVersion?: string
   readonly officialPackage: string
   readonly officialVersion: string
   readonly officialBin: string
@@ -21,6 +22,7 @@ export function formatPreflightReport(report: DistributionPreflight): string {
   const lines = [
     'dsh-community 自检（不启动对话，也不打印密钥）',
     '',
+    ...(report.clientVersion === undefined ? [] : [`  客户端     ${report.clientVersion}`]),
     `  官方包     ${report.officialPackage}@${report.officialVersion}`,
     `  官方 bin   ${report.officialBin}`,
     `  数据目录   ${report.officialHome}`,

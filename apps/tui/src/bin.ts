@@ -31,6 +31,7 @@ import {
   parseCommunityLaunch,
   resumeEnv,
 } from './launch.js'
+import { communityClientVersion, formatClientIdentity } from './version.js'
 import { ensureCommunityTuiProfile, profileDir } from './profile.js'
 import {
   formatHumanSessions,
@@ -51,6 +52,7 @@ function writeDoctor(): boolean {
     officialPackage: install.packageName,
     officialVersion: install.version,
     officialBin: install.binPath,
+    clientVersion: communityClientVersion(),
     officialHome: dshHome,
     sessionCount: listOfficialSessions(officialSessionRoot(dshHome)).length,
     apiKeyPresent: officialApiKeyPresent(),
@@ -88,6 +90,12 @@ const launch = parseCommunityLaunch(process.argv.slice(2))
 
 if (launch.kind === 'help') {
   process.stdout.write(COMMUNITY_TUI_HELP)
+  process.exit(0)
+}
+
+if (launch.kind === 'version') {
+  const install = resolveOfficialDsh({ from: import.meta.url })
+  process.stdout.write(formatClientIdentity(install.packageName, install.version))
   process.exit(0)
 }
 

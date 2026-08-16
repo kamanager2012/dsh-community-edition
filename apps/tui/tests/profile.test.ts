@@ -46,6 +46,8 @@ describe('our TUI profile', () => {
     expect(isCommunityListSessions(['--list-sessions'])).toBe(true)
     expect(isCommunityListSessions(['--help'])).toBe(false)
     expect(parseCommunityLaunch(['--help'])).toEqual({ kind: 'help' })
+    expect(parseCommunityLaunch(['version'])).toEqual({ kind: 'version' })
+    expect(parseCommunityLaunch(['-v'])).toEqual({ kind: 'version' })
     expect(parseCommunityLaunch(['--doctor'])).toEqual({ kind: 'doctor' })
     expect(parseCommunityLaunch(['doctor'])).toEqual({ kind: 'doctor' })
     expect(parseCommunityLaunch(['--plugins'])).toEqual({ kind: 'plugins', porcelain: false })

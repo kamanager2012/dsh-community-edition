@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Linux AppImage uses desktopName so the window maps to the .desktop entry
+- `dsh-community version` prints client version and official pin
+
 ## 0.1.2-preview — 2026-08-16
 
 Release: https://github.com/kamanager2012/dsh-community-edition/releases/tag/v0.1.2-preview

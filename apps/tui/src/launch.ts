@@ -10,6 +10,7 @@ export function officialTuiArgv(patchPath: string, extra: readonly string[] = []
 
 export type CommunityLaunch =
   | { readonly kind: 'help' }
+  | { readonly kind: 'version' }
   | { readonly kind: 'doctor' }
   | { readonly kind: 'desktop' }
   | { readonly kind: 'plugins'; readonly porcelain: boolean }
@@ -27,6 +28,7 @@ export const COMMUNITY_TUI_HELP = `dsh-community — 社区发行层，跑在官
   dsh-community new                 强制开新对话
   dsh-community resume last         明确接着最近一条
   dsh-community sessions            看官方 ~/.dsh 里的对话
+  dsh-community version             客户端版本 + 官方 pin
   dsh-community doctor              自检（不打印密钥）
   dsh-community plugins             只读插件目录
   dsh-community desktop             打开桌面壳
@@ -35,6 +37,7 @@ export const COMMUNITY_TUI_HELP = `dsh-community — 社区发行层，跑在官
   --resume last|<id>  /  resume last|<id>
   --list-sessions / sessions / -l
   --plugins / plugins
+  --version / version
   --doctor / doctor
   --desktop / desktop
   -h, --help
@@ -54,6 +57,7 @@ export function parseCommunityLaunch(argv: readonly string[]): CommunityLaunch {
   if (head === undefined || head === 'chat') return { kind: 'default' }
   if (head === '--new' || head === 'new') return { kind: 'new', rest: args.slice(1) }
   if (head === '--help' || head === '-h' || head === 'help') return { kind: 'help' }
+  if (head === '--version' || head === '-v' || head === 'version') return { kind: 'version' }
   if (head === '--doctor' || head === 'doctor') return { kind: 'doctor' }
   if (head === '--desktop' || head === 'desktop') return { kind: 'desktop' }
   if (head === '--plugins' || head === 'plugins') {

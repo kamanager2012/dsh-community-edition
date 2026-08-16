@@ -43,6 +43,7 @@ dsh-community                 # 有对话就接着最近一条
 dsh-community new             # 开新对话
 dsh-community resume last     # 明确接着最近一条
 dsh-community sessions
+dsh-community version
 dsh-community doctor
 dsh-community plugins         # 只读目录，安装用官方 dsh plugin add
 dsh-community desktop
