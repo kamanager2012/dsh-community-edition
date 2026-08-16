@@ -69,13 +69,14 @@ Windows / macOS 在对应系统上：`pnpm desktop:package -- --win` 或 `--mac`
 | Desktop 子进程启动 `dsh web`，只管理生命周期 | 不把 stdout 解析成业务协议 |
 | 默认共用官方 `~/.dsh` session 真源 | 不把 DSH 数据迁进 Desktop AppData |
 | 我们的 TUI 自己组合、自己列官方 session | 不把参考 TUI 当上游，不维护第二套 session log |
+| 只读插件目录，安装走官方 `dsh plugin add` | 不把 Ink 手感、免审批、上下文压缩、语音等做成壳内功能 |
 | `contracts/` 快照官方表面 | 不维护一套社区 `event-types.ts` |
 
 ## 成功标准
 
 1. 官方源代码 vendor = 0
 2. TUI 对官方 Cordis row 的覆盖数量显著下降（33 → 15 → 8 → 只剩 TUI 自己的 insert）
-3. TUI/Desktop 不实现 Agent loop、Session persistence、Tool execution
+3. TUI/Desktop 不实现 Agent loop、Session persistence、Tool execution；插件能解决的不进壳
 4. 一次 upstream rc bump，业务 UI 原则上零修改
 5. TUI / Desktop / 官方 Web 能共享同一 Session 真源
 6. 新版本兼容问题首先在 contract CI 爆

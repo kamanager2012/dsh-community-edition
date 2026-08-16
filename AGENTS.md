@@ -8,7 +8,8 @@ This is a community launcher/adapter workspace for official DeepSeek Harness.
 - Default: do not rewrite DSH_HOME. Sessions stay in official ~/.dsh so TUI/Web/Desktop share one log.
 - Snapshot official surface under contracts/upstream. Do not maintain event-types.ts.
 - Official `@deepseek-ai/dsh` is the development foundation. Third-party Desktop/TUI repos are references to beat, not remotes we patch.
-- Our TUI product is apps/tui (`dsh-community-tui`). Mount reference Ink as a plugin; do not add it as a dsh.bundle.
+- Stable client first. If a DSH plugin can do it, do not put it in this tree. Catalog is read-only; install is official `dsh plugin add`.
+- Our TUI product is apps/tui (`dsh-community`). Mount reference Ink as a plugin; do not add it as a dsh.bundle and do not fork its screens.
 - Desktop KPI is Official Source Ownership = 0.
 - Recommend latest tested from contracts/compatibility, not npm latest.
 - Window state, catalog, and host.log live in Electron userData. Never write those under ~/.dsh.

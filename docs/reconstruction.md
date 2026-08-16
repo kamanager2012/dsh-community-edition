@@ -4,7 +4,7 @@
 
 是围绕官方 DSH Runtime，建立 **Terminal Distribution**、**Desktop Distribution** 和 **Compatibility Infrastructure** 三块社区资产。
 
-**官方 DSH 是开发基础**：session、agent loop、工具、模型适配都在已发布的 `@deepseek-ai/dsh` 里，我们站在这上面做发行面。第三方 Desktop / TUI 只是**参考物**。我们的 Desktop 和 TUI 也是第三方产品，目标是**超过参考物**，不是给参考仓提补丁，也不是等官方再发一个 UI。
+**官方 DSH 是开发基础**：session、agent loop、工具、模型适配都在已发布的 `@deepseek-ai/dsh` 里，我们站在这上面做**稳定的发行客户端**。第三方 Desktop / TUI 只是**参考物**。能做成官方插件的能力（渲染、压缩、记忆、语音）留给插件；本仓负责启动、共用 `~/.dsh`、契约和发行，不把那些能力再写进壳里。
 
 ## 官方 TUI 现状（不要写死）
 

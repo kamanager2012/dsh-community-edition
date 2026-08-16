@@ -26,6 +26,8 @@ Community **distribution + compatibility** around official DeepSeek Harness. Not
 
 There is no second agent runtime in the middle.
 
+The product is a **stable client**: launch official dsh, share `~/.dsh`, survive an rc bump. Capabilities that a DSH plugin can own (Ink chrome, context panels, compressors, voice, memory) stay plugins. This client discovers them and copies `dsh plugin add`; it does not reimplement them.
+
 ## What official currently signals
 
 Official `apps/` today is `cli` and `web`. Architecture says UI/editor integration should drive `ctx.agents` and render from `session/event`, and that there is no privileged core to patch.
@@ -69,7 +71,7 @@ A new official rc: extract → diff snapshots → contract tests → then TUI/De
 
 1. **Official Source Ownership = 0** — no vendored `packages/core`, `apps/web`, …
 2. **TUI patch-surface reduction** — official Cordis row overrides go 33 → 15 → 8 → TUI-owned inserts only
-3. **TUI/Desktop do not implement** Agent loop, Session persistence, Tool execution
+3. **TUI/Desktop do not implement** Agent loop, Session persistence, Tool execution, or plugin-solvable features (diff chrome, auto-approval, context guard, extra tools)
 4. **Upstream rc bump** does not require business UI code changes
 5. **TUI / Desktop / official Web share the same session source of truth**
 6. **Breaks fail in contract CI first**, not on a user’s machine
