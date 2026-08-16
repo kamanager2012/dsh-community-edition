@@ -2,7 +2,9 @@
 
 **DSH 社区版（DeepSeek Harness Community Edition）—— 0.1.2-preview.**
 
-只发布在 [github.com/kamanager2012/dsh-community-edition](https://github.com/kamanager2012/dsh-community-edition)。官方 Runtime 的社区发行层，不是官方客户端，也不是第二套 harness。
+这是 Grok 工作线的冻结树，定位 **Merge & Archive**。对外旗舰是 [dsh-community](https://github.com/kamanager2012/dsh-community)（Canonical Product）。成熟能力经契约 / E2E / 安全验证后再晋升过去，不在本仓继续扩成第二套产品。
+
+官方 Runtime 的社区发行层，不是官方客户端，也不是第二套 harness。
 
 [![ci](https://github.com/kamanager2012/dsh-community-edition/actions/workflows/ci.yml/badge.svg)](https://github.com/kamanager2012/dsh-community-edition/actions/workflows/ci.yml)
 

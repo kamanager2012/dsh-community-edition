@@ -4,6 +4,7 @@
 
 - Linux AppImage uses desktopName so the window maps to the .desktop entry
 - `dsh-community version` prints client version and official pin
+- Repo role frozen: Merge & Archive; canonical product is `dsh-community`
 
 ## 0.1.2-preview — 2026-08-16
 

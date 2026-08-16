@@ -13,6 +13,7 @@ This is a community launcher/adapter workspace for official DeepSeek Harness.
 - Desktop KPI is Official Source Ownership = 0.
 - Recommend latest tested from contracts/compatibility, not npm latest.
 - Window state, catalog, and host.log live in Electron userData. Never write those under ~/.dsh.
-- Publish only to https://github.com/kamanager2012/dsh-community-edition. Do not merge this tree into another community DSH suite.
+- This repo is **Merge & Archive**. Canonical product is https://github.com/kamanager2012/dsh-community. Do not grow a second product here. Promote only stable client slices (launch, ~/.dsh, contracts, doctor). Do not implement Labs Reality Gates (checkpoint jail, risk engine, SDK transport) in this tree.
+- Frozen six-repo map: official runtime → dsh-community (product) + handbook + plugins + marketplace; suite = Community Labs; this edition = merge candidate.
 
 Read `ARCHITECTURE.md` and `docs/upgrade.md` before changing layout.
