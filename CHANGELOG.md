@@ -18,6 +18,8 @@ Desktop shell polish on the same GitHub repo. No new Release tag.
 - Read-only plugin catalog (`--plugins` / Desktop 插件页) copies `dsh plugin add`; does not install
 - `--doctor` also says whether the community TUI profile plugin is installed
 - README links the handbook and plugin registry without vendoring them
+- One entry: `dsh-community` / `pnpm start` / `pnpm doctor`; missing API key prints doctor and exits
+- Subcommands: `resume`, `sessions`, `plugins`, `desktop`
 
 ## 0.1.1-preview — 2026-08-16
 

@@ -11,44 +11,55 @@ export function officialTuiArgv(patchPath: string, extra: readonly string[] = []
 export type CommunityLaunch =
   | { readonly kind: 'help' }
   | { readonly kind: 'doctor' }
+  | { readonly kind: 'desktop' }
   | { readonly kind: 'plugins'; readonly porcelain: boolean }
   | { readonly kind: 'list'; readonly porcelain: boolean }
   | { readonly kind: 'pick' }
   | { readonly kind: 'resume'; readonly id: string; readonly rest: readonly string[] }
   | { readonly kind: 'run'; readonly rest: readonly string[] }
 
-export const COMMUNITY_TUI_HELP = `dsh-community-tui — 社区终端，跑在官方 @deepseek-ai/dsh 上
+export const COMMUNITY_TUI_HELP = `dsh-community — 社区发行层，跑在官方 @deepseek-ai/dsh 上
 
 先这样用：
-  dsh-community-tui                 开新对话（要 TTY + DEEPSEEK_API_KEY）
-  dsh-community-tui --list-sessions 看官方 ~/.dsh 里的对话
-  dsh-community-tui --resume last   接着最近一条
-  dsh-community-tui --resume        列出并挑选
-  dsh-community-tui --doctor        检查官方包 / TTY / 密钥（不打印密钥）
-  dsh-community-tui --plugins       只读社区插件目录（安装仍用官方 dsh plugin add）
+  dsh-community                     开新对话（要 TTY + DEEPSEEK_API_KEY）
+  dsh-community resume last         接着最近一条
+  dsh-community sessions            看官方 ~/.dsh 里的对话
+  dsh-community doctor              自检（不打印密钥）
+  dsh-community plugins             只读插件目录
+  dsh-community desktop             打开桌面壳
 
-  -l, --list-sessions [--porcelain]  只读列表（默认给人看）
-  --plugins [--porcelain]            只读目录，不安装
-  --resume last|<id>                 交给官方 dsh --resume <id>
-  --resume                           交互挑选（无 TTY 时打印列表）
-  --doctor                           自检，不启动 Ink
-  -h, --help                         本说明
+  --resume last|<id>  /  resume last|<id>
+  --list-sessions / sessions / -l
+  --plugins / plugins
+  --doctor / doctor
+  --desktop / desktop
+  -h, --help
 
-其它参数原样传给官方 dsh。Session 在官方 ~/.dsh，和 Desktop / Web 是同一份。
-这个命令不叫 dsh-tui，也不发到 npm。
+dsh-community-tui 是同一入口。安装走官方 dsh plugin add。不叫 dsh-tui，不发 npm。
 `
 
-export function parseCommunityLaunch(argv: readonly string[]): CommunityLaunch {
+function peelLauncher(argv: readonly string[]): string[] {
   const args = argv[0] === '--' ? argv.slice(1) : [...argv]
-  if (args[0] === '--help' || args[0] === '-h') return { kind: 'help' }
-  if (args[0] === '--doctor') return { kind: 'doctor' }
-  if (args[0] === '--plugins') {
+  if (args[0] === 'tui' || args[0] === 'start') return args.slice(1)
+  return args
+}
+
+export function parseCommunityLaunch(argv: readonly string[]): CommunityLaunch {
+  const args = peelLauncher(argv)
+  const head = args[0]
+  if (head === undefined || head === 'chat') return { kind: 'run', rest: [] }
+  if (head === '--help' || head === '-h' || head === 'help') return { kind: 'help' }
+  if (head === '--doctor' || head === 'doctor') return { kind: 'doctor' }
+  if (head === '--desktop' || head === 'desktop') return { kind: 'desktop' }
+  if (head === '--plugins' || head === 'plugins') {
     return { kind: 'plugins', porcelain: args.includes('--porcelain') }
   }
-  if (args[0] === '--list-sessions' || args[0] === '-l') {
+  if (
+    head === '--list-sessions' || head === '-l' || head === 'sessions' || head === 'list'
+  ) {
     return { kind: 'list', porcelain: args.includes('--porcelain') }
   }
-  if (args[0] === '--resume') {
+  if (head === '--resume' || head === 'resume') {
     const id = args[1]
     if (id === undefined || id.length === 0 || id.startsWith('-')) return { kind: 'pick' }
     return { kind: 'resume', id, rest: args.slice(2) }

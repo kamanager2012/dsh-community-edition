@@ -23,31 +23,30 @@
 
 ## 先这样用
 
-需要 Node 22+、pnpm，以及 `DEEPSEEK_API_KEY`。对话存在官方 `~/.dsh`，终端和桌面是同一批。
+需要 Node 22+、pnpm，以及 `DEEPSEEK_API_KEY`。对话在官方 `~/.dsh`，终端和桌面同一批。没密钥不会闷头进 Ink。
 
 ```sh
 git clone https://github.com/kamanager2012/dsh-community-edition.git
-cd dsh-community
+cd dsh-community-edition
 pnpm install
-
-pnpm desktop          # 打开官方 Web，顶栏可切 Session
-pnpm tui              # 终端里开新对话（要真正的 TTY）
-pnpm tui -- --list-sessions
-pnpm tui -- --resume last
-pnpm tui -- --doctor
-pnpm tui -- --plugins
+export DEEPSEEK_API_KEY=...
+pnpm start              # 终端开聊
+pnpm desktop            # 桌面壳
+pnpm doctor             # 自检
 ```
 
-Linux 预览包：[0.1.1-preview AppImage](https://github.com/kamanager2012/dsh-community/releases/tag/v0.1.1-preview)。不要把本仓发到 npm 当官方或 `dsh-tui` 的替代。
+装完后同一入口也叫 `dsh-community`（`dsh-community-tui` 仍可用）：
 
 ```sh
-dsh-community-tui                 # 开新对话
-dsh-community-tui --list-sessions
-dsh-community-tui --resume last   # 接着最近一条
-dsh-community-tui --resume        # 列出并挑选
-dsh-community-tui --doctor        # 检查官方包 / TTY / 密钥
-dsh-community-tui --plugins       # 只读社区插件目录（安装用官方 dsh plugin add）
+dsh-community                 # 开新对话
+dsh-community resume last     # 接着最近一条
+dsh-community sessions
+dsh-community doctor
+dsh-community plugins         # 只读目录，安装用官方 dsh plugin add
+dsh-community desktop
 ```
+
+Linux 预览包仍在旧 Release：[0.1.1-preview AppImage](https://github.com/kamanager2012/dsh-community/releases/tag/v0.1.1-preview)。不要把本仓发到 npm 当官方或 `dsh-tui` 的替代。
 
 打 Linux 解包目录或 AppImage（预览，未签名）：
 

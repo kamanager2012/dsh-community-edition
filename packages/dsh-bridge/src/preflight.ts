@@ -37,7 +37,7 @@ export function formatPreflightReport(report: DistributionPreflight): string {
     lines.push('')
   }
   if (!report.tty) {
-    lines.push('没有 TTY 时：dsh-community-tui --list-sessions')
+    lines.push('没有 TTY 时：dsh-community sessions')
     lines.push('')
   }
   return lines.join('\n')

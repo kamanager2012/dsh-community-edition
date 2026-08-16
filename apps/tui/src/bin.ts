@@ -5,6 +5,8 @@
 
 import { spawnSync } from 'node:child_process'
 import { readSync } from 'node:fs'
+import { dirname, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { homedir } from 'node:os'
 import {
   COMMUNITY_PLUGIN_CATALOG_REPO,
@@ -41,6 +43,21 @@ function fail(message: string, code = 2): never {
   process.exit(code)
 }
 
+function writeDoctor(): boolean {
+  const install = resolveOfficialDsh({ from: import.meta.url })
+  process.stdout.write(formatPreflightReport({
+    officialPackage: install.packageName,
+    officialVersion: install.version,
+    officialBin: install.binPath,
+    officialHome: dshHome,
+    sessionCount: listOfficialSessions(officialSessionRoot(dshHome)).length,
+    apiKeyPresent: officialApiKeyPresent(),
+    tty: Boolean(process.stdout.isTTY),
+    profileReady: !profileNeedsInstall(profileDir(dshHome)),
+  }))
+  return officialApiKeyPresent()
+}
+
 function readPrompt(question: string): string {
   process.stdout.write(question)
   const chunks: Buffer[] = []
@@ -56,7 +73,7 @@ function pickResumeId(sessions: readonly OfficialSessionRef[], root: string): st
   process.stdout.write(formatHumanSessions(sessions, root))
   if (sessions.length === 0) process.exit(0)
   if (!process.stdin.isTTY) {
-    fail('没有交互终端。接着最近一条：dsh-community-tui --resume last')
+    fail('没有交互终端。接着最近一条：dsh-community resume last')
   }
   const choice = readPrompt('输入序号、last 或 session id：')
   const picked = parsePickChoice(choice, sessions)
@@ -76,18 +93,13 @@ const sessionRoot = officialSessionRoot(dshHome)
 const sessions = listOfficialSessions(sessionRoot)
 
 if (launch.kind === 'doctor') {
-  const install = resolveOfficialDsh({ from: import.meta.url })
-  process.stdout.write(formatPreflightReport({
-    officialPackage: install.packageName,
-    officialVersion: install.version,
-    officialBin: install.binPath,
-    officialHome: dshHome,
-    sessionCount: sessions.length,
-    apiKeyPresent: officialApiKeyPresent(),
-    tty: Boolean(process.stdout.isTTY),
-    profileReady: !profileNeedsInstall(profileDir(dshHome)),
-  }))
-  process.exit(officialApiKeyPresent() ? 0 : 2)
+  process.exit(writeDoctor() ? 0 : 2)
+}
+
+if (launch.kind === 'desktop') {
+  const root = resolve(dirname(fileURLToPath(import.meta.url)), '../../..')
+  const result = spawnSync('pnpm', ['desktop'], { cwd: root, stdio: 'inherit', env: process.env })
+  process.exit(result.status ?? 1)
 }
 
 if (launch.kind === 'plugins') {
@@ -131,17 +143,16 @@ if (launch.kind === 'pick') {
 if (!process.stdout.isTTY) {
   fail(
     [
-      'dsh-community-tui 需要交互终端。',
-      '先看对话：dsh-community-tui --list-sessions',
-      '或在真正的终端窗口里运行 dsh-community-tui / --resume last',
+      '开聊需要交互终端。',
+      '先看对话：dsh-community sessions',
+      '或在真正的终端窗口里运行 dsh-community / dsh-community resume last',
     ].join('\n'),
   )
 }
 
 if (!officialApiKeyPresent()) {
-  process.stderr.write(
-    '还没有 DEEPSEEK_API_KEY。先 export DEEPSEEK_API_KEY=...，或运行 dsh-community-tui --doctor\n',
-  )
+  writeDoctor()
+  fail('先 export DEEPSEEK_API_KEY=... 再运行 dsh-community')
 }
 
 const { dir, patchPath } = ensureCommunityTuiProfile({
