@@ -38,6 +38,7 @@ describe('shell pages', () => {
       phase: 'ready',
       pid: '12',
       logs: 'dsh web: http://127.0.0.1:4310',
+      apiKeyPresent: false,
     })
     expect(html).toMatch(/@deepseek-ai\/dsh@0\.1\.0-rc\.6/)
     expect(html).toMatch(/~\/\.dsh/)
@@ -45,6 +46,7 @@ describe('shell pages', () => {
     expect(html).toMatch(/\/home\/dev\/\.dsh/)
     expect(html).toMatch(/dsh-community/)
     expect(html).toMatch(/3 sessions/)
+    expect(html).toMatch(/未设置 DEEPSEEK_API_KEY/)
   })
 
   it('lists official ~/.dsh sessions without a second store', () => {

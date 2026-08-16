@@ -14,6 +14,7 @@ export interface AboutPageModel {
   readonly phase: string
   readonly pid: string
   readonly logs: string
+  readonly apiKeyPresent: boolean
 }
 
 export interface OfficialSessionRow {
@@ -171,6 +172,7 @@ export function renderAboutPage(model: AboutPageModel): string {
        <dt>Desktop 数据</dt><dd><code>${escapeHtml(model.desktopRoot)}</code></dd>
        <dt>就绪 origin</dt><dd><code>${escapeHtml(model.origin || '—')}</code></dd>
        <dt>Host</dt><dd>${escapeHtml(model.phase)} · pid ${escapeHtml(model.pid)}</dd>
+       <dt>API 密钥</dt><dd>${model.apiKeyPresent ? '已设置 DEEPSEEK_API_KEY' : '未设置 DEEPSEEK_API_KEY — 官方 Web 开不了对话'}</dd>
      </dl>
      <pre>${escapeHtml(model.logs || '(no host log yet)')}</pre>
      <div class="row">

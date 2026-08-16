@@ -66,6 +66,12 @@ export {
   type OfficialSessionRef,
 } from './session-store.js'
 export {
+  formatPreflightReport,
+  officialApiKeyPresent,
+  OFFICIAL_API_KEY_ENV,
+  type DistributionPreflight,
+} from './preflight.js'
+export {
   emptyRuntimeCatalog,
   hydrateCatalog,
   parseRuntimeCatalog,

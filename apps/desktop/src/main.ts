@@ -27,6 +27,7 @@ import {
   pinDefault,
   resolveDesktopAppLayout,
   resolveEffectiveOfficialHome,
+  officialApiKeyPresent,
   resolveOfficialDsh,
   spawnOfficialWeb,
   type OfficialHost,
@@ -181,6 +182,7 @@ function chromeModel(active: ChromeActive) {
     isolated: isolatedNow(),
     origin,
     sessionCount: listOfficialSessions(officialSessionRoot(officialHome())).length,
+    apiKeyPresent: officialApiKeyPresent(),
     active,
   }
 }
@@ -224,6 +226,7 @@ function aboutModel() {
     phase: snap?.phase ?? 'idle',
     pid: snap && 'pid' in snap && snap.pid !== undefined ? String(snap.pid) : '—',
     logs: host?.logs() ?? '',
+    apiKeyPresent: officialApiKeyPresent(),
   }
 }
 

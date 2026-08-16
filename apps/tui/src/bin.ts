@@ -7,7 +7,9 @@ import { spawnSync } from 'node:child_process'
 import { readSync } from 'node:fs'
 import { homedir } from 'node:os'
 import {
+  formatPreflightReport,
   listOfficialSessions,
+  officialApiKeyPresent,
   officialSessionRoot,
   resolveOfficialDsh,
   resolveOfficialDshHome,
@@ -69,6 +71,20 @@ if (launch.kind === 'help') {
 const sessionRoot = officialSessionRoot(dshHome)
 const sessions = listOfficialSessions(sessionRoot)
 
+if (launch.kind === 'doctor') {
+  const install = resolveOfficialDsh({ from: import.meta.url })
+  process.stdout.write(formatPreflightReport({
+    officialPackage: install.packageName,
+    officialVersion: install.version,
+    officialBin: install.binPath,
+    officialHome: dshHome,
+    sessionCount: sessions.length,
+    apiKeyPresent: officialApiKeyPresent(),
+    tty: Boolean(process.stdout.isTTY),
+  }))
+  process.exit(officialApiKeyPresent() ? 0 : 2)
+}
+
 if (launch.kind === 'list') {
   if (launch.porcelain) {
     if (sessions.length === 0) process.stdout.write(`no official sessions under ${sessionRoot}\n`)
@@ -95,6 +111,12 @@ if (!process.stdout.isTTY) {
       '先看对话：dsh-community-tui --list-sessions',
       '或在真正的终端窗口里运行 dsh-community-tui / --resume last',
     ].join('\n'),
+  )
+}
+
+if (!officialApiKeyPresent()) {
+  process.stderr.write(
+    '还没有 DEEPSEEK_API_KEY。先 export DEEPSEEK_API_KEY=...，或运行 dsh-community-tui --doctor\n',
   )
 }
 

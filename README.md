@@ -32,6 +32,7 @@ pnpm desktop          # 打开官方 Web，顶栏可切 Session
 pnpm tui              # 终端里开新对话（要真正的 TTY）
 pnpm tui -- --list-sessions
 pnpm tui -- --resume last
+pnpm tui -- --doctor
 ```
 
 Linux 预览包：[0.1.1-preview AppImage](https://github.com/kamanager2012/dsh-community/releases/tag/v0.1.1-preview)。不要把本仓发到 npm 当官方或 `dsh-tui` 的替代。
@@ -41,6 +42,7 @@ dsh-community-tui                 # 开新对话
 dsh-community-tui --list-sessions
 dsh-community-tui --resume last   # 接着最近一条
 dsh-community-tui --resume        # 列出并挑选
+dsh-community-tui --doctor        # 检查官方包 / TTY / 密钥
 ```
 
 打 Linux 解包目录或 AppImage（预览，未签名）：

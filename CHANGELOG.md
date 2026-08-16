@@ -13,6 +13,8 @@ Desktop shell polish on the same GitHub repo. No new Release tag.
 - `--list-sessions` prints transcript mtime next to the official path
 - TUI: human session list, `--resume last`, `--resume` picker, no-TTY hint
 - Desktop session page highlights the latest chat and copies `--resume last`
+- `dsh-community-tui --doctor` checks official pin / TTY / API key without printing the secret
+- Desktop chrome and About say when `DEEPSEEK_API_KEY` is missing
 
 ## 0.1.1-preview — 2026-08-16
 

@@ -28,6 +28,7 @@ Ink 屏幕仍来自参考实现，直到我们自己换渲染器。换渲染器�
 pnpm tui
 pnpm tui -- --list-sessions
 pnpm tui -- --resume last
+pnpm tui -- --doctor
 ```
 
 需要 TTY 和 `DEEPSEEK_API_KEY`。Session 在官方 `~/.dsh`。没有 TTY 时会提示用 `--list-sessions`，不会硬塞进 Ink。

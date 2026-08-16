@@ -16,6 +16,7 @@ export interface ChromeBarModel {
   readonly isolated: boolean
   readonly origin: string
   readonly sessionCount: number
+  readonly apiKeyPresent: boolean
   readonly active: ChromeActive
 }
 
@@ -42,7 +43,8 @@ function escapeHtml(value: string): string {
 /** Thin bar that stays up while official `dsh web` fills the rest of the window. */
 export function renderChromePage(model: ChromeBarModel): string {
   const where = model.isolated ? '隔离' : '共用 ~/.dsh'
-  const status = `${model.phase} · ${where} · ${String(model.sessionCount)} 条对话`
+  const key = model.apiKeyPresent ? '' : ' · 缺 DEEPSEEK_API_KEY'
+  const status = `${model.phase} · ${where} · ${String(model.sessionCount)} 条对话${key}`
   return `<!doctype html>
 <html lang="zh-CN">
   <head>
