@@ -180,6 +180,7 @@ function chromeModel(active: ChromeActive) {
     phase: snap?.phase ?? 'idle',
     isolated: isolatedNow(),
     origin,
+    sessionCount: listOfficialSessions(officialSessionRoot(officialHome())).length,
     active,
   }
 }

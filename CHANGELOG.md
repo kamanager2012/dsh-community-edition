@@ -11,6 +11,8 @@ Desktop shell polish on the same GitHub repo. No new Release tag.
 - `dsh-community-tui` treats a leading `--` as a pnpm passthrough so `--help` / `--list-sessions` work
 - Desktop keeps a chrome bar while official `dsh web` runs in a child view
 - `--list-sessions` prints transcript mtime next to the official path
+- TUI: human session list, `--resume last`, `--resume` picker, no-TTY hint
+- Desktop session page highlights the latest chat and copies `--resume last`
 
 ## 0.1.1-preview — 2026-08-16
 

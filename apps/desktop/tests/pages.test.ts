@@ -12,7 +12,8 @@ import {
 describe('shell pages', () => {
   it('says the window is a shell around official dsh web', () => {
     expect(renderLoadingPage()).toMatch(/dsh web/)
-    expect(renderLoadingPage()).toMatch(/不跑第二套/)
+    expect(renderLoadingPage()).toMatch(/--resume last/)
+    expect(renderLoadingPage()).toMatch(/DEEPSEEK_API_KEY/)
   })
 
   it('gives a restart action when the official child fails', () => {
@@ -69,8 +70,9 @@ describe('shell pages', () => {
     expect(listed).toMatch(/sess-abc/)
     expect(listed).toMatch(/--tmp-proj--/)
     expect(listed).toMatch(/2026-08-16 00:31:15 UTC/)
-    expect(listed).toMatch(/dsh-community-tui --resume/)
-    expect(listed).toMatch(/复制 --resume/)
+    expect(listed).toMatch(/dsh-community-tui --resume last/)
+    expect(listed).toMatch(/最近/)
+    expect(listed).toMatch(/复制命令/)
     expect(listed).not.toMatch(/\.dsh-cc/)
   })
 

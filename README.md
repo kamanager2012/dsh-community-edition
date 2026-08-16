@@ -19,36 +19,28 @@
 
 中文 | [Architecture](ARCHITECTURE.md) · [重构说明](docs/reconstruction.md) · [Upgrade](docs/upgrade.md) · [TUI adapter](docs/tui-adapter.md) · [contracts](contracts/README.md) · [Version Manager](docs/version-manager.md)
 
-## 现在能给谁用
+## 先这样用
 
-| 你要什么 | 用谁 |
-|---|---|
-| 真正跑 agent | 官方 [`npx @deepseek-ai/dsh web`](https://github.com/deepseek-ai/deepseek-harness) |
-| 终端 TUI | 本仓 `pnpm tui`（官方 profile + 薄 patch，Ink 只当挂载的插件） |
-| Linux 桌面预览 | [0.1.1-preview AppImage](https://github.com/kamanager2012/dsh-community/releases/tag/v0.1.1-preview) 或 `pnpm desktop` |
-| 官方表面快照 / 升 rc 契约 | **本仓** |
-
-不要把本仓发到 npm 当 `@deepseek-ai/dsh` 或 `dsh-tui` 的替代。
-
-## 从源码跑
-
-需要 Node 22+ 和 pnpm。
+需要 Node 22+、pnpm，以及 `DEEPSEEK_API_KEY`。对话存在官方 `~/.dsh`，终端和桌面是同一批。
 
 ```sh
 git clone https://github.com/kamanager2012/dsh-community.git
 cd dsh-community
 pnpm install
-pnpm test
-pnpm desktop          # 官方 dsh web + 薄壳
-pnpm tui              # 官方 dsh --profile dsh-community-tui
+
+pnpm desktop          # 打开官方 Web，顶栏可切 Session
+pnpm tui              # 终端里开新对话（要真正的 TTY）
+pnpm tui -- --list-sessions
+pnpm tui -- --resume last
 ```
 
-会拉起已发布的 `@deepseek-ai/dsh@0.1.0-rc.6`，默认共用官方 `~/.dsh`。
+Linux 预览包：[0.1.1-preview AppImage](https://github.com/kamanager2012/dsh-community/releases/tag/v0.1.1-preview)。不要把本仓发到 npm 当官方或 `dsh-tui` 的替代。
 
 ```sh
-dsh-community-tui --help
+dsh-community-tui                 # 开新对话
 dsh-community-tui --list-sessions
-dsh-community-tui --resume <official-session-id>
+dsh-community-tui --resume last   # 接着最近一条
+dsh-community-tui --resume        # 列出并挑选
 ```
 
 打 Linux 解包目录或 AppImage（预览，未签名）：

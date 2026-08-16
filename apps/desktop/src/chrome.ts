@@ -15,6 +15,7 @@ export interface ChromeBarModel {
   readonly phase: string
   readonly isolated: boolean
   readonly origin: string
+  readonly sessionCount: number
   readonly active: ChromeActive
 }
 
@@ -40,7 +41,8 @@ function escapeHtml(value: string): string {
 
 /** Thin bar that stays up while official `dsh web` fills the rest of the window. */
 export function renderChromePage(model: ChromeBarModel): string {
-  const status = `${model.phase}${model.isolated ? ' · 隔离' : ' · 共用 ~/.dsh'}`
+  const where = model.isolated ? '隔离' : '共用 ~/.dsh'
+  const status = `${model.phase} · ${where} · ${String(model.sessionCount)} 条对话`
   return `<!doctype html>
 <html lang="zh-CN">
   <head>

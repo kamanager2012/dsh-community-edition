@@ -19,9 +19,11 @@ describe('desktop chrome around official dsh web', () => {
       phase: 'ready',
       isolated: false,
       origin: 'http://127.0.0.1:4310',
+      sessionCount: 3,
       active: 'official',
     })
     expect(html).toMatch(/共用 ~\/\.dsh/)
+    expect(html).toMatch(/3 条对话/)
     expect(html).toMatch(/data-go="official"/)
     expect(html).toMatch(/data-go="sessions"/)
     expect(html).toMatch(/data-active="true"/)

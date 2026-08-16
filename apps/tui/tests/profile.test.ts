@@ -47,9 +47,10 @@ describe('our TUI profile', () => {
     expect(isCommunityListSessions(['--help'])).toBe(false)
     expect(parseCommunityLaunch(['--help'])).toEqual({ kind: 'help' })
     expect(parseCommunityLaunch(['--', '--help'])).toEqual({ kind: 'help' })
-    expect(parseCommunityLaunch(['--', '--list-sessions']).kind).toBe('list')
-    expect(COMMUNITY_TUI_HELP).toMatch(/official @deepseek-ai\/dsh/)
-    expect(COMMUNITY_TUI_HELP).toMatch(/--list-sessions/)
+    expect(parseCommunityLaunch(['--', '--list-sessions'])).toEqual({ kind: 'list', porcelain: false })
+    expect(parseCommunityLaunch(['-l', '--porcelain'])).toEqual({ kind: 'list', porcelain: true })
+    expect(COMMUNITY_TUI_HELP).toMatch(/@deepseek-ai\/dsh/)
+    expect(COMMUNITY_TUI_HELP).toMatch(/--resume last/)
   })
 
   it('resumes from an official session id, not a second store', () => {
@@ -73,6 +74,11 @@ describe('our TUI profile', () => {
     ])
     expect(resumeEnv({}, 'sess-abc').DSH_TUI_RESUME_SESSION).toBe('sess-abc')
     expect(resumeEnv({}, 'sess-abc').DSH_CC_RESUME_SESSION).toBe('sess-abc')
-    expect(() => parseCommunityLaunch(['--resume'])).toThrow(/session id/)
+    expect(parseCommunityLaunch(['--resume'])).toEqual({ kind: 'pick' })
+    expect(parseCommunityLaunch(['--resume', 'last'])).toEqual({
+      kind: 'resume',
+      id: 'last',
+      rest: [],
+    })
   })
 })

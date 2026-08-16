@@ -136,7 +136,8 @@ export function renderLoadingPage(): string {
   return shellDocument(
     COMMUNITY_PRODUCT_NAME,
     `<h1>${escapeHtml(COMMUNITY_PRODUCT_NAME)}</h1>
-     <p>正在启动官方 <code>dsh web</code>。本窗口只做壳，不跑第二套 agent loop。</p>`,
+     <p>正在启动官方 <code>dsh web</code>。聊完的对话在 <code>~/.dsh</code>，终端里可以用 <code>dsh-community-tui --resume last</code> 接着开。</p>
+     <p>本窗口只做壳。模型密钥用环境变量 <code>DEEPSEEK_API_KEY</code>。</p>`,
   )
 }
 
@@ -185,26 +186,29 @@ export function renderAboutPage(model: AboutPageModel): string {
 }
 
 export function renderOfficialSessionsPage(model: OfficialSessionsPageModel): string {
+  const latest = model.sessions[0]
   const rows = model.sessions.length === 0
-    ? '<p>官方 <code>~/.dsh/sessions</code> 里还没有 session。TUI / Web / 本窗口共用这一份，不会另建目录。</p>'
-    : `<table>
+    ? `<p>还没有对话。点下面「打开官方 Web」开聊，或在终端运行 <code>dsh-community-tui</code>。TUI / Web / 本窗口共用 <code>~/.dsh/sessions</code>，不会另建目录。</p>`
+    : `${latest === undefined ? '' : `<p>最近一条 <code>${escapeHtml(latest.id)}</code> · ${escapeHtml(latest.updatedAt)}</p>`}
+       <table>
          <thead><tr><th>session</th><th>project</th><th>updated</th><th></th></tr></thead>
-         <tbody>${model.sessions.map((session) =>
+         <tbody>${model.sessions.map((session, index) =>
            `<tr>
-              <td><code>${escapeHtml(session.id)}</code></td>
+              <td><code>${escapeHtml(session.id)}</code>${index === 0 ? ' <strong>最近</strong>' : ''}</td>
               <td><code>${escapeHtml(session.projectKey)}</code></td>
               <td>${escapeHtml(session.updatedAt)}</td>
-              <td><button class="secondary" data-resume="${escapeHtml(session.id)}">复制 --resume</button></td>
+              <td><button class="secondary" data-resume="${escapeHtml(session.id)}">复制命令</button></td>
             </tr>`,
          ).join('')}</tbody>
        </table>`
   return shellDocument(
     `${model.product} · 官方 Session`,
     `<h1>官方 Session</h1>
-     <p>只读列出官方 <code>${escapeHtml(model.officialHome)}</code>${model.isolated ? '（隔离）' : ''} 下的 <code>sessions/</code>。恢复对话走官方 Web 或 <code>dsh-community-tui --resume &lt;id&gt;</code>。本页不另建 session 目录。</p>
+     <p>只读列出 <code>${escapeHtml(model.officialHome)}</code>${model.isolated ? '（隔离）' : ''}。终端接着聊：<code>dsh-community-tui --resume last</code>。本页不另建 session 目录。</p>
      ${rows}
      <div class="row">
        <button data-go="official">打开官方 Web</button>
+       ${latest === undefined ? '' : '<button class="secondary" id="copy-last">复制 --resume last</button>'}
        <button class="secondary" data-go="sessions">刷新列表</button>
      </div>
      <script>
@@ -213,6 +217,9 @@ export function renderOfficialSessionsPage(model: OfficialSessionsPageModel): st
            const id = btn.getAttribute('data-resume')
            if (id) window.dshCommunity?.copyText('dsh-community-tui --resume ' + id)
          })
+       })
+       document.getElementById('copy-last')?.addEventListener('click', () => {
+         window.dshCommunity?.copyText('dsh-community-tui --resume last')
        })
      </script>`,
   )
