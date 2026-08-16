@@ -19,9 +19,27 @@
 
 开发基础就是**目前已发布**的官方包 `@deepseek-ai/dsh@0.1.0-rc.6`（见 `packages/dsh-bridge` 的 pin）。在这上面做 Terminal / Desktop 发行，不另写 harness，也不等下一份官方 UI。
 
-中文 | [Architecture](ARCHITECTURE.md) · [重构说明](docs/reconstruction.md) · [Upgrade](docs/upgrade.md) · [TUI adapter](docs/tui-adapter.md) · [contracts](contracts/README.md) · [Version Manager](docs/version-manager.md)
+[English](README.en.md) | 简体中文 | [Architecture](ARCHITECTURE.md) · [重构说明](docs/reconstruction.md) · [Upgrade](docs/upgrade.md) · [TUI adapter](docs/tui-adapter.md) · [contracts](contracts/README.md) · [Version Manager](docs/version-manager.md)
 
 工程手册（独立仓，不是本树）：[deepseek-harness-handbook](https://github.com/kamanager2012/deepseek-harness-handbook)。插件注册表也是独立仓：[dsh-community-plugins](https://github.com/kamanager2012/dsh-community-plugins)。
+
+## 六仓生态中的位置
+
+本仓是 **Merge & Archive（合流归档）**。它保留历史发行线和可复用实现，
+但不再发展成第二个稳定产品。新的用户下载、Release 和正式版本统一进入
+[`dsh-community`](https://github.com/kamanager2012/dsh-community/releases/latest)。
+
+| 仓库 | 定位 | 入口 |
+|---|---|---|
+| [`dsh-community`](https://github.com/kamanager2012/dsh-community) | Canonical Product，唯一正式产品 | [最新 Release](https://github.com/kamanager2012/dsh-community/releases/latest) |
+| [`deepseek-harness-suite`](https://github.com/kamanager2012/deepseek-harness-suite) | Community Labs，实验源 | [Labs](https://github.com/kamanager2012/deepseek-harness-suite) |
+| [`deepseek-harness-handbook`](https://github.com/kamanager2012/deepseek-harness-handbook) | Knowledge / Evidence | [在线手册](https://kamanager2012.github.io/deepseek-harness-handbook/) |
+| [`dsh-community-plugins`](https://github.com/kamanager2012/dsh-community-plugins) | 插件兼容性注册表 | [Registry](https://github.com/kamanager2012/dsh-community-plugins) |
+| [`dsh-marketplace`](https://github.com/kamanager2012/dsh-marketplace) | 发现和安装体验 | [Marketplace](https://github.com/kamanager2012/dsh-marketplace) |
+| `dsh-community-edition` | Merge & Archive | 本仓库 |
+
+官方 [DeepSeek Harness Runtime](https://github.com/deepseek-ai/deepseek-harness) 才是执行核心。
+归档仓不应重新实现 Agent loop、Session persistence、Tool execution 或官方 core packages。
 
 ## 先这样用
 
