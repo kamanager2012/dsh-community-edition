@@ -1,27 +1,14 @@
-# dsh-community
+# dsh-community-edition
 
-**DSH 社区版（DeepSeek Harness Community Edition）—— 0.1.2-preview.**
+> **DEPRECATED / ARCHIVED.** 本仓已合流进 [`dsh-community`](https://github.com/kamanager2012/dsh-community)，不再发行、不再扩功能。用户下载只走 [dsh-community/releases](https://github.com/kamanager2012/dsh-community/releases)。
 
-这是 Grok 工作线的冻结树，定位 **Merge & Archive**。对外旗舰是 [dsh-community](https://github.com/kamanager2012/dsh-community)（Canonical Product）。成熟能力经契约 / E2E / 安全验证后再晋升过去，不在本仓继续扩成第二套产品。
+这是历史冻结树（Merge & Archive），不是正式产品，不是第二套客户端。有用的启动器 UX 已经晋升到旗舰仓。不要再 clone 本仓当日常入口，也不要从本仓 Releases 装东西。
 
-官方 Runtime 的社区发行层，不是官方客户端，也不是第二套 harness。
+[English](README.en.md) · [Canonical Product](https://github.com/kamanager2012/dsh-community) · [Stable](https://github.com/kamanager2012/dsh-community/releases/latest) · [All releases](https://github.com/kamanager2012/dsh-community/releases)
 
-[![ci](https://github.com/kamanager2012/dsh-community-edition/actions/workflows/ci.yml/badge.svg)](https://github.com/kamanager2012/dsh-community-edition/actions/workflows/ci.yml)
+开发基础当时是已发布的官方包 `@deepseek-ai/dsh@0.1.0-rc.6`。这个事实只对读历史代码有用。日常开发去旗舰仓。
 
-| 发行面 | 命名 | 入口 |
-|---|---|---|
-| 终端 | **社区版·终端** | `dsh-community-tui` / `pnpm tui` |
-| 桌面 | **社区版·桌面** | Linux AppImage / `pnpm desktop` |
-
-> 命名红线：不叫 dsh-TUI / DeepSeek Harness Desktop（那是参考物），不在 npm 冒用 `@deepseek-ai` 或 `dsh-tui` 的包名。
-
-[仓库](https://github.com/kamanager2012/dsh-community-edition) · [Release](https://github.com/kamanager2012/dsh-community-edition/releases/tag/v0.1.2-preview)
-
-开发基础就是**目前已发布**的官方包 `@deepseek-ai/dsh@0.1.0-rc.6`（见 `packages/dsh-bridge` 的 pin）。在这上面做 Terminal / Desktop 发行，不另写 harness，也不等下一份官方 UI。
-
-[English](README.en.md) | 简体中文 | [Architecture](ARCHITECTURE.md) · [重构说明](docs/reconstruction.md) · [Upgrade](docs/upgrade.md) · [TUI adapter](docs/tui-adapter.md) · [contracts](contracts/README.md) · [Version Manager](docs/version-manager.md)
-
-工程手册（独立仓，不是本树）：[deepseek-harness-handbook](https://github.com/kamanager2012/deepseek-harness-handbook)。插件注册表也是独立仓：[dsh-community-plugins](https://github.com/kamanager2012/dsh-community-plugins)。
+[Architecture](ARCHITECTURE.md) · [重构说明](docs/reconstruction.md) · [Upgrade](docs/upgrade.md)
 
 ## 六仓生态中的位置
 
@@ -41,46 +28,21 @@
 官方 [DeepSeek Harness Runtime](https://github.com/deepseek-ai/deepseek-harness) 才是执行核心。
 归档仓不应重新实现 Agent loop、Session persistence、Tool execution 或官方 core packages。
 
-## 先这样用
+## 不要从这里开始用
 
-需要 Node 22+、pnpm，以及 `DEEPSEEK_API_KEY`。对话在官方 `~/.dsh`，终端和桌面同一批。没密钥不会闷头进 Ink。
+日常入口是旗舰仓：
 
 ```sh
-git clone https://github.com/kamanager2012/dsh-community-edition.git
-cd dsh-community-edition
+git clone https://github.com/kamanager2012/dsh-community.git
+cd dsh-community
 pnpm install
 export DEEPSEEK_API_KEY=...
-pnpm start              # 有对话就接着最近一条，否则开新的
-pnpm new                # 强制开新对话
-pnpm desktop            # 桌面壳
-pnpm doctor             # 自检
+pnpm start
 ```
 
-装完后同一入口也叫 `dsh-community`（`dsh-community-tui` 仍可用）：
+下载安装包也只走 [dsh-community/releases](https://github.com/kamanager2012/dsh-community/releases)。本仓的 clone / `pnpm start` / 本仓 Releases 都不是用户路径。
 
-```sh
-dsh-community                 # 有对话就接着最近一条
-dsh-community new             # 开新对话
-dsh-community resume last     # 明确接着最近一条
-dsh-community sessions
-dsh-community version
-dsh-community doctor
-dsh-community plugins         # 只读目录，安装用官方 dsh plugin add
-dsh-community desktop
-```
-
-Linux 预览包：[0.1.2-preview AppImage](https://github.com/kamanager2012/dsh-community-edition/releases/tag/v0.1.2-preview)。不要把本仓发到 npm 当官方或 `dsh-tui` 的替代。
-
-打 Linux 解包目录或 AppImage（预览，未签名）：
-
-```sh
-pnpm desktop:package
-./apps/desktop/release/linux-unpacked/dsh-community
-
-pnpm desktop:package -- --appimage
-```
-
-Windows / macOS 在对应系统上：`pnpm desktop:package -- --win` 或 `--mac`。不要 `npm publish` 本仓的 workspace 包。发布顺序见 [docs/release.md](docs/release.md)。
+装完后同一入口也叫 `dsh-community`（`dsh-community-tui` 仍可用）。本仓历史 AppImage 不再是下载入口。
 
 ## 硬边界
 

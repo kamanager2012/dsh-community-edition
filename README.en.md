@@ -1,6 +1,6 @@
 # dsh-community-edition
 
-**Historical community distribution — Merge & Archive.**
+> **DEPRECATED / ARCHIVED.** Merged into [`dsh-community`](https://github.com/kamanager2012/dsh-community). Do not download from this repo. Users go to [dsh-community/releases](https://github.com/kamanager2012/dsh-community/releases).
 
 [简体中文](README.md) | **English**
 
@@ -10,10 +10,9 @@ second stable product, not the current download channel, and not the official cl
 
 ## Current status
 
-New user downloads, releases, and canonical product work belong to
-[`dsh-community`](https://github.com/kamanager2012/dsh-community), the only formal
-community product. Reusable capabilities from this tree may be merged there and then
-this repository should remain an archive rather than developing a parallel roadmap.
+This tree is archived. New user downloads, releases, and product work belong only to
+[`dsh-community`](https://github.com/kamanager2012/dsh-community). Do not clone this
+repository as a daily client and do not install from this repository's Releases.
 
 The execution core is the official [DeepSeek Harness Runtime](https://github.com/deepseek-ai/deepseek-harness).
 This tree must not reimplement the official Agent loop, Session persistence, tool
