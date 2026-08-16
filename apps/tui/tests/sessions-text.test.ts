@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import {
   formatHumanSessions,
   formatPorcelainSessions,
+  newestOfficialSession,
   parsePickChoice,
   resolveResumeTarget,
 } from '../src/sessions-text.ts'
@@ -23,6 +24,8 @@ const sessions = [
 
 describe('resume targets stay on the official store', () => {
   it('resolves last to the newest listed session', () => {
+    expect(newestOfficialSession(sessions)?.id).toBe('sess-new')
+    expect(newestOfficialSession([])).toBeUndefined()
     expect(resolveResumeTarget('last', sessions)).toEqual({ ok: true, id: 'sess-new' })
     expect(resolveResumeTarget('sess-old', sessions)).toEqual({ ok: true, id: 'sess-old' })
     expect(resolveResumeTarget('missing', sessions).ok).toBe(false)

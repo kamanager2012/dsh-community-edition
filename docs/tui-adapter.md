@@ -26,6 +26,7 @@ Ink 屏幕仍来自参考实现，直到我们自己换渲染器。换渲染器�
 
 ```sh
 pnpm start
+pnpm new
 pnpm doctor
 pnpm sessions
 dsh-community resume last

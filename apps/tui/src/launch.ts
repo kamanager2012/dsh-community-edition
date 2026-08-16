@@ -15,19 +15,23 @@ export type CommunityLaunch =
   | { readonly kind: 'plugins'; readonly porcelain: boolean }
   | { readonly kind: 'list'; readonly porcelain: boolean }
   | { readonly kind: 'pick' }
+  | { readonly kind: 'default' }
+  | { readonly kind: 'new'; readonly rest: readonly string[] }
   | { readonly kind: 'resume'; readonly id: string; readonly rest: readonly string[] }
   | { readonly kind: 'run'; readonly rest: readonly string[] }
 
 export const COMMUNITY_TUI_HELP = `dsh-community — 社区发行层，跑在官方 @deepseek-ai/dsh 上
 
 先这样用：
-  dsh-community                     开新对话（要 TTY + DEEPSEEK_API_KEY）
-  dsh-community resume last         接着最近一条
+  dsh-community                     有对话就接着最近一条，否则开新的
+  dsh-community new                 强制开新对话
+  dsh-community resume last         明确接着最近一条
   dsh-community sessions            看官方 ~/.dsh 里的对话
   dsh-community doctor              自检（不打印密钥）
   dsh-community plugins             只读插件目录
   dsh-community desktop             打开桌面壳
 
+  --new / new
   --resume last|<id>  /  resume last|<id>
   --list-sessions / sessions / -l
   --plugins / plugins
@@ -47,7 +51,8 @@ function peelLauncher(argv: readonly string[]): string[] {
 export function parseCommunityLaunch(argv: readonly string[]): CommunityLaunch {
   const args = peelLauncher(argv)
   const head = args[0]
-  if (head === undefined || head === 'chat') return { kind: 'run', rest: [] }
+  if (head === undefined || head === 'chat') return { kind: 'default' }
+  if (head === '--new' || head === 'new') return { kind: 'new', rest: args.slice(1) }
   if (head === '--help' || head === '-h' || head === 'help') return { kind: 'help' }
   if (head === '--doctor' || head === 'doctor') return { kind: 'doctor' }
   if (head === '--desktop' || head === 'desktop') return { kind: 'desktop' }

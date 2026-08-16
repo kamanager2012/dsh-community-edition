@@ -51,6 +51,8 @@ describe('our TUI profile', () => {
     expect(parseCommunityLaunch(['--plugins'])).toEqual({ kind: 'plugins', porcelain: false })
     expect(parseCommunityLaunch(['sessions'])).toEqual({ kind: 'list', porcelain: false })
     expect(parseCommunityLaunch(['desktop'])).toEqual({ kind: 'desktop' })
+    expect(parseCommunityLaunch([])).toEqual({ kind: 'default' })
+    expect(parseCommunityLaunch(['new'])).toEqual({ kind: 'new', rest: [] })
     expect(parseCommunityLaunch(['tui', 'resume', 'last'])).toEqual({
       kind: 'resume',
       id: 'last',

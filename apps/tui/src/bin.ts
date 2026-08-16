@@ -11,6 +11,7 @@ import { homedir } from 'node:os'
 import {
   COMMUNITY_PLUGIN_CATALOG_REPO,
   fetchPluginCatalog,
+  formatOfficialSessionMtime,
   formatPluginCatalog,
   formatPreflightReport,
   listOfficialSessions,
@@ -34,6 +35,7 @@ import { ensureCommunityTuiProfile, profileDir } from './profile.js'
 import {
   formatHumanSessions,
   formatPorcelainSessions,
+  newestOfficialSession,
   parsePickChoice,
   resolveResumeTarget,
 } from './sessions-text.js'
@@ -138,6 +140,8 @@ if (launch.kind === 'pick') {
   const resolved = resolveResumeTarget(launch.id, sessions)
   if (!resolved.ok) fail(resolved.reason)
   resumeId = resolved.id
+} else if (launch.kind === 'default') {
+  resumeId = newestOfficialSession(sessions)?.id
 }
 
 if (!process.stdout.isTTY) {
@@ -160,8 +164,17 @@ const { dir, patchPath } = ensureCommunityTuiProfile({
   communityPatch: composeCommunityTuiPatch(),
 })
 
+const continuing = resumeId === undefined ? undefined : sessions.find((session) => session.id === resumeId)
+if (continuing !== undefined) {
+  process.stderr.write(
+    `接着 ${continuing.id}（${formatOfficialSessionMtime(continuing.mtimeMs)}）。开新对话：dsh-community new\n`,
+  )
+} else if (sessions.length > 0 && (launch.kind === 'new' || launch.kind === 'run')) {
+  process.stderr.write(`新对话。接着最近一条：dsh-community\n`)
+}
+
 if (profileNeedsInstall(dir)) {
-  process.stderr.write('dsh-community-tui: 第一次启动，正在安装终端插件（只要一次）…\n')
+  process.stderr.write('dsh-community: 第一次启动，正在安装终端插件（只要一次）…\n')
   const pnpm = installProfileDeps(dir)
   if (!pnpm.ok) {
     fail('dsh-community-tui: 官方 profile 目录里 pnpm install 失败', pnpm.status ?? 1)
@@ -169,8 +182,15 @@ if (profileNeedsInstall(dir)) {
 }
 
 const extra = resumeId === undefined
-  ? officialAppArgs({ kind: 'run', rest: launch.kind === 'run' ? launch.rest : [] })
-  : officialAppArgs({ kind: 'resume', id: resumeId, rest: launch.kind === 'resume' ? launch.rest : [] })
+  ? officialAppArgs({
+      kind: 'run',
+      rest: launch.kind === 'run' || launch.kind === 'new' ? launch.rest : [],
+    })
+  : officialAppArgs({
+      kind: 'resume',
+      id: resumeId,
+      rest: launch.kind === 'resume' ? launch.rest : [],
+    })
 const env = resumeId === undefined ? process.env : resumeEnv(process.env, resumeId)
 
 const install = resolveOfficialDsh({ from: import.meta.url })

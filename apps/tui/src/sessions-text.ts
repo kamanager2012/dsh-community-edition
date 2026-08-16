@@ -1,12 +1,18 @@
 import type { OfficialSessionRef } from '@dsh-community/dsh-bridge'
 import { formatOfficialSessionMtime } from '@dsh-community/dsh-bridge'
 
+export function newestOfficialSession(
+  sessions: readonly OfficialSessionRef[],
+): OfficialSessionRef | undefined {
+  return sessions[0]
+}
+
 export function resolveResumeTarget(
   requested: string,
   sessions: readonly OfficialSessionRef[],
 ): { ok: true; id: string } | { ok: false; reason: string } {
   if (sessions.length === 0) {
-    return { ok: false, reason: 'no official sessions — run dsh-community-tui to start one' }
+    return { ok: false, reason: 'no official sessions — run dsh-community new to start one' }
   }
   if (requested === 'last') {
     const named = sessions.find((session) => session.id === 'last')

@@ -30,7 +30,8 @@ git clone https://github.com/kamanager2012/dsh-community-edition.git
 cd dsh-community-edition
 pnpm install
 export DEEPSEEK_API_KEY=...
-pnpm start              # 终端开聊
+pnpm start              # 有对话就接着最近一条，否则开新的
+pnpm new                # 强制开新对话
 pnpm desktop            # 桌面壳
 pnpm doctor             # 自检
 ```
@@ -38,8 +39,9 @@ pnpm doctor             # 自检
 装完后同一入口也叫 `dsh-community`（`dsh-community-tui` 仍可用）：
 
 ```sh
-dsh-community                 # 开新对话
-dsh-community resume last     # 接着最近一条
+dsh-community                 # 有对话就接着最近一条
+dsh-community new             # 开新对话
+dsh-community resume last     # 明确接着最近一条
 dsh-community sessions
 dsh-community doctor
 dsh-community plugins         # 只读目录，安装用官方 dsh plugin add

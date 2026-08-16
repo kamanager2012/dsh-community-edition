@@ -20,6 +20,7 @@ Desktop shell polish on the same GitHub repo. No new Release tag.
 - README links the handbook and plugin registry without vendoring them
 - One entry: `dsh-community` / `pnpm start` / `pnpm doctor`; missing API key prints doctor and exits
 - Subcommands: `resume`, `sessions`, `plugins`, `desktop`
+- Bare `dsh-community` continues the newest official session; `new` starts a fresh one
 
 ## 0.1.1-preview — 2026-08-16
 

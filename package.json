@@ -18,6 +18,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "start": "pnpm --filter @dsh-community/tui start",
+    "new": "pnpm --filter @dsh-community/tui start -- new",
     "doctor": "pnpm --filter @dsh-community/tui start -- doctor",
     "sessions": "pnpm --filter @dsh-community/tui start -- sessions",
     "plugins": "pnpm --filter @dsh-community/tui start -- plugins",
