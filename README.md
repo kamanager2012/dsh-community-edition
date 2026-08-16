@@ -15,7 +15,7 @@
 
 [仓库](https://github.com/kamanager2012/dsh-community-edition) · [Release](https://github.com/kamanager2012/dsh-community/releases/tag/v0.1.1-preview)
 
-开发基础是官方 DeepSeek Harness（`@deepseek-ai/dsh`）。我们在这上面做 Terminal / Desktop 发行和契约层，不另写一套 harness。
+开发基础就是**目前已发布**的官方包 `@deepseek-ai/dsh@0.1.0-rc.6`（见 `packages/dsh-bridge` 的 pin）。在这上面做 Terminal / Desktop 发行，不另写 harness，也不等下一份官方 UI。
 
 中文 | [Architecture](ARCHITECTURE.md) · [重构说明](docs/reconstruction.md) · [Upgrade](docs/upgrade.md) · [TUI adapter](docs/tui-adapter.md) · [contracts](contracts/README.md) · [Version Manager](docs/version-manager.md)
 

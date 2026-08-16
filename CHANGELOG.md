@@ -22,6 +22,7 @@ Desktop shell polish on the same GitHub repo. No new Release tag.
 - Subcommands: `resume`, `sessions`, `plugins`, `desktop`
 - Bare `dsh-community` continues the newest official session; `new` starts a fresh one
 - Product rule: stable client; plugin-solvable features stay plugins
+- Foundation is the current published official pin, not a future official UI
 
 ## 0.1.1-preview — 2026-08-16
 

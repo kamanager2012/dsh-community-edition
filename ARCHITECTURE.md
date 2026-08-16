@@ -1,6 +1,6 @@
 # Architecture
 
-Community **distribution + compatibility** around official DeepSeek Harness. Not a second harness.
+Community **distribution + compatibility** around the **currently published** official DeepSeek Harness (`@deepseek-ai/dsh`, pinned). Not a second harness, and not a client that waits for the next official app.
 
 ```
                   DeepSeek Harness
