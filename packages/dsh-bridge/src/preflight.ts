@@ -14,6 +14,7 @@ export interface DistributionPreflight {
   readonly sessionCount: number
   readonly apiKeyPresent: boolean
   readonly tty: boolean
+  readonly profileReady?: boolean
 }
 
 export function formatPreflightReport(report: DistributionPreflight): string {
@@ -26,6 +27,9 @@ export function formatPreflightReport(report: DistributionPreflight): string {
     `  对话       ${String(report.sessionCount)} 条`,
     `  交互终端   ${report.tty ? '是' : '否 — 列表可用，开聊要 TTY'}`,
     `  API 密钥   ${report.apiKeyPresent ? '已设置' : `未设置 ${OFFICIAL_API_KEY_ENV}`}`,
+    ...(report.profileReady === undefined
+      ? []
+      : [`  TUI 插件   ${report.profileReady ? '已装进官方 profile' : '第一次开聊时会安装'}`]),
     '',
   ]
   if (!report.apiKeyPresent) {

@@ -5,6 +5,7 @@ import {
   renderErrorPage,
   renderLoadingPage,
   renderOfficialSessionsPage,
+  renderPluginsPage,
   renderRuntimePage,
   renderSettingsPage,
 } from '../src/pages.ts'
@@ -124,5 +125,23 @@ describe('shell pages', () => {
     expect(html).toMatch(/latest-tested/)
     expect(html).toMatch(/不是 npm latest/)
     expect(html).toMatch(/runtime-versions\.json/)
+  })
+
+  it('lists community plugins as a read-only catalog', () => {
+    const html = renderPluginsPage({
+      product: 'DSH Community',
+      source: 'https://github.com/kamanager2012/dsh-community-plugins',
+      error: '',
+      plugins: [{
+        name: 'dsh-context',
+        version: '0.8.0',
+        testedDsh: '0.1.0-rc.6',
+        description: '上下文面板',
+      }],
+    })
+    expect(html).toMatch(/dsh plugin add/)
+    expect(html).toMatch(/dsh-context/)
+    expect(html).toMatch(/只读浏览/)
+    expect(html).not.toMatch(/installPlugin/)
   })
 })

@@ -21,9 +21,11 @@ describe('distribution preflight', () => {
       sessionCount: 2,
       apiKeyPresent: false,
       tty: false,
+      profileReady: false,
     })
     expect(text).toMatch(/未设置 DEEPSEEK_API_KEY/)
     expect(text).toMatch(/--list-sessions/)
     expect(text).not.toMatch(/sk-/)
+    expect(text).toMatch(/第一次开聊时会安装/)
   })
 })

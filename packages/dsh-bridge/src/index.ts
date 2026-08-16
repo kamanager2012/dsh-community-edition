@@ -66,6 +66,17 @@ export {
   type OfficialSessionRef,
 } from './session-store.js'
 export {
+  COMMUNITY_PLUGIN_CATALOG_REPO,
+  COMMUNITY_PLUGIN_CATALOG_URL,
+  fetchPluginCatalog,
+  formatPluginCatalog,
+  HANDBOOK_REPO,
+  officialPluginAddCommand,
+  parsePluginCatalog,
+  type CatalogPlugin,
+  type PluginCatalog,
+} from './plugin-catalog.js'
+export {
   formatPreflightReport,
   officialApiKeyPresent,
   OFFICIAL_API_KEY_ENV,

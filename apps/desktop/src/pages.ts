@@ -63,6 +63,20 @@ export interface DiagnosticsPageModel {
   readonly logs: string
 }
 
+export interface PluginRow {
+  readonly name: string
+  readonly version: string
+  readonly testedDsh: string
+  readonly description: string
+}
+
+export interface PluginsPageModel {
+  readonly product: string
+  readonly source: string
+  readonly error: string
+  readonly plugins: readonly PluginRow[]
+}
+
 function escapeHtml(value: string): string {
   return value
     .replaceAll('&', '&amp;')
@@ -107,6 +121,7 @@ function shellDocument(title: string, body: string): string {
       <nav class="nav">
         <button class="secondary" data-go="official">官方 Web</button>
         <button class="secondary" data-go="sessions">Session</button>
+        <button class="secondary" data-go="plugins">插件</button>
         <button class="secondary" data-go="runtime">运行时</button>
         <button class="secondary" data-go="settings">设置</button>
         <button class="secondary" data-go="diagnostics">诊断</button>
@@ -117,6 +132,7 @@ function shellDocument(title: string, body: string): string {
       const go = {
         official: () => window.dshCommunity?.openOfficial(),
         sessions: () => window.dshCommunity?.showSessions(),
+        plugins: () => window.dshCommunity?.showPlugins(),
         runtime: () => window.dshCommunity?.showRuntime(),
         settings: () => window.dshCommunity?.showSettings(),
         diagnostics: () => window.dshCommunity?.showDiagnostics(),
@@ -305,6 +321,42 @@ export function renderDiagnosticsPage(model: DiagnosticsPageModel): string {
        })
        document.getElementById('copy')?.addEventListener('click', () => {
          window.dshCommunity?.copyText(${JSON.stringify(model.logs || '')})
+       })
+     </script>`,
+  )
+}
+
+export function renderPluginsPage(model: PluginsPageModel): string {
+  const body = model.error !== ''
+    ? `<p>读不了目录：${escapeHtml(model.error)}</p>
+       <p>打开 <code>${escapeHtml(model.source)}</code>。安装仍用官方 <code>dsh plugin add</code>。</p>`
+    : model.plugins.length === 0
+      ? `<p>目录是空的。来源 <code>${escapeHtml(model.source)}</code>。</p>`
+      : `<table>
+           <thead><tr><th>插件</th><th>tested</th><th></th></tr></thead>
+           <tbody>${model.plugins.map((plugin) =>
+             `<tr>
+                <td><code>${escapeHtml(plugin.name)}</code> ${escapeHtml(plugin.version)}<br />${escapeHtml(plugin.description)}</td>
+                <td>${escapeHtml(plugin.testedDsh)}</td>
+                <td><button class="secondary" data-add="${escapeHtml(plugin.name)}">复制 dsh plugin add</button></td>
+              </tr>`,
+           ).join('')}</tbody>
+         </table>`
+  return shellDocument(
+    `${model.product} · 插件目录`,
+    `<h1>社区插件目录</h1>
+     <p>只读浏览 <code>${escapeHtml(model.source)}</code>。安装走官方 <code>dsh plugin add &lt;name&gt;</code>，本页不装、不改 ~/.dsh。</p>
+     ${body}
+     <div class="row">
+       <button class="secondary" data-go="plugins">刷新</button>
+       <button class="secondary" data-go="official">返回会话</button>
+     </div>
+     <script>
+       document.querySelectorAll('[data-add]').forEach((btn) => {
+         btn.addEventListener('click', () => {
+           const name = btn.getAttribute('data-add')
+           if (name) window.dshCommunity?.copyText('dsh plugin add ' + name)
+         })
        })
      </script>`,
   )

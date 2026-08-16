@@ -10,6 +10,7 @@ contextBridge.exposeInMainWorld('dshCommunity', {
   applySettings: (patch: { hideToTray?: boolean; isolated?: boolean }) =>
     ipcRenderer.invoke(DESKTOP_IPC.applySettings, patch),
   showSessions: () => ipcRenderer.invoke(DESKTOP_IPC.showSessions),
+  showPlugins: () => ipcRenderer.invoke(DESKTOP_IPC.showPlugins),
   showSettings: () => ipcRenderer.invoke(DESKTOP_IPC.showSettings),
   showDiagnostics: () => ipcRenderer.invoke(DESKTOP_IPC.showDiagnostics),
   showRuntime: () => ipcRenderer.invoke(DESKTOP_IPC.showRuntime),

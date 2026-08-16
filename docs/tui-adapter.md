@@ -29,6 +29,7 @@ pnpm tui
 pnpm tui -- --list-sessions
 pnpm tui -- --resume last
 pnpm tui -- --doctor
+pnpm tui -- --plugins
 ```
 
 需要 TTY 和 `DEEPSEEK_API_KEY`。Session 在官方 `~/.dsh`。没有 TTY 时会提示用 `--list-sessions`，不会硬塞进 Ink。

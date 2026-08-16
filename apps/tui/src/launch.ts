@@ -11,6 +11,7 @@ export function officialTuiArgv(patchPath: string, extra: readonly string[] = []
 export type CommunityLaunch =
   | { readonly kind: 'help' }
   | { readonly kind: 'doctor' }
+  | { readonly kind: 'plugins'; readonly porcelain: boolean }
   | { readonly kind: 'list'; readonly porcelain: boolean }
   | { readonly kind: 'pick' }
   | { readonly kind: 'resume'; readonly id: string; readonly rest: readonly string[] }
@@ -24,8 +25,10 @@ export const COMMUNITY_TUI_HELP = `dsh-community-tui — 社区终端，跑在�
   dsh-community-tui --resume last   接着最近一条
   dsh-community-tui --resume        列出并挑选
   dsh-community-tui --doctor        检查官方包 / TTY / 密钥（不打印密钥）
+  dsh-community-tui --plugins       只读社区插件目录（安装仍用官方 dsh plugin add）
 
   -l, --list-sessions [--porcelain]  只读列表（默认给人看）
+  --plugins [--porcelain]            只读目录，不安装
   --resume last|<id>                 交给官方 dsh --resume <id>
   --resume                           交互挑选（无 TTY 时打印列表）
   --doctor                           自检，不启动 Ink
@@ -39,6 +42,9 @@ export function parseCommunityLaunch(argv: readonly string[]): CommunityLaunch {
   const args = argv[0] === '--' ? argv.slice(1) : [...argv]
   if (args[0] === '--help' || args[0] === '-h') return { kind: 'help' }
   if (args[0] === '--doctor') return { kind: 'doctor' }
+  if (args[0] === '--plugins') {
+    return { kind: 'plugins', porcelain: args.includes('--porcelain') }
+  }
   if (args[0] === '--list-sessions' || args[0] === '-l') {
     return { kind: 'list', porcelain: args.includes('--porcelain') }
   }

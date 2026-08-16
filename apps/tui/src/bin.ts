@@ -7,9 +7,13 @@ import { spawnSync } from 'node:child_process'
 import { readSync } from 'node:fs'
 import { homedir } from 'node:os'
 import {
+  COMMUNITY_PLUGIN_CATALOG_REPO,
+  fetchPluginCatalog,
+  formatPluginCatalog,
   formatPreflightReport,
   listOfficialSessions,
   officialApiKeyPresent,
+  officialPluginAddCommand,
   officialSessionRoot,
   resolveOfficialDsh,
   resolveOfficialDshHome,
@@ -24,7 +28,7 @@ import {
   parseCommunityLaunch,
   resumeEnv,
 } from './launch.js'
-import { ensureCommunityTuiProfile } from './profile.js'
+import { ensureCommunityTuiProfile, profileDir } from './profile.js'
 import {
   formatHumanSessions,
   formatPorcelainSessions,
@@ -81,8 +85,28 @@ if (launch.kind === 'doctor') {
     sessionCount: sessions.length,
     apiKeyPresent: officialApiKeyPresent(),
     tty: Boolean(process.stdout.isTTY),
+    profileReady: !profileNeedsInstall(profileDir(dshHome)),
   }))
   process.exit(officialApiKeyPresent() ? 0 : 2)
+}
+
+if (launch.kind === 'plugins') {
+  try {
+    const catalog = await fetchPluginCatalog()
+    if (launch.porcelain) {
+      for (const plugin of catalog.plugins) {
+        process.stdout.write(
+          `${plugin.name}\t${plugin.version}\t${plugin.testedDsh}\t${officialPluginAddCommand(plugin.name)}\n`,
+        )
+      }
+    } else {
+      process.stdout.write(formatPluginCatalog(catalog, COMMUNITY_PLUGIN_CATALOG_REPO))
+    }
+    process.exit(0)
+  } catch (error) {
+    const detail = error instanceof Error ? error.message : String(error)
+    fail(`读不了插件目录（${detail}）。打开 ${COMMUNITY_PLUGIN_CATALOG_REPO}`)
+  }
 }
 
 if (launch.kind === 'list') {

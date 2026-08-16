@@ -15,6 +15,9 @@ Desktop shell polish on the same GitHub repo. No new Release tag.
 - Desktop session page highlights the latest chat and copies `--resume last`
 - `dsh-community-tui --doctor` checks official pin / TTY / API key without printing the secret
 - Desktop chrome and About say when `DEEPSEEK_API_KEY` is missing
+- Read-only plugin catalog (`--plugins` / Desktop 插件页) copies `dsh plugin add`; does not install
+- `--doctor` also says whether the community TUI profile plugin is installed
+- README links the handbook and plugin registry without vendoring them
 
 ## 0.1.1-preview — 2026-08-16
 
